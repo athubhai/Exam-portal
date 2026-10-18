@@ -1,0 +1,724 @@
+/* ==========================================================================
+   MINIMAL FINTECH DASHBOARD DESIGN SYSTEM
+   Theme: Obsidian Graphite, Electric Emerald/Mint Accents, Crisp Glass Cards
+   ========================================================================== */
+
+:root {
+  /* Surfaces & Backgrounds */
+  --ft-bg-canvas: #080a0f;
+  --ft-bg-surface: #0e121a;
+  --ft-bg-surface-elevated: #131924;
+  --ft-bg-card: rgba(17, 22, 33, 0.75);
+  --ft-bg-card-hover: rgba(25, 33, 49, 0.85);
+  --ft-bg-card-solid: #121824;
+  --ft-bg-inset: #090c13;
+  --ft-bg-glass: rgba(14, 18, 26, 0.8);
+  
+  /* Borders */
+  --ft-border-subtle: rgba(255, 255, 255, 0.06);
+  --ft-border-base: rgba(255, 255, 255, 0.1);
+  --ft-border-highlight: rgba(16, 185, 129, 0.35);
+  --ft-border-hover: rgba(255, 255, 255, 0.16);
+
+  /* Primary Accent: Electric Mint / Emerald */
+  --ft-primary: #10b981;
+  --ft-primary-light: #34d399;
+  --ft-primary-glow: rgba(16, 185, 129, 0.25);
+  --ft-primary-muted: rgba(16, 185, 129, 0.1);
+  --ft-primary-border: rgba(16, 185, 129, 0.28);
+
+  /* Secondary Accents */
+  --ft-accent-cyan: #06b6d4;
+  --ft-accent-cyan-light: #22d3ee;
+  --ft-accent-indigo: #6366f1;
+  --ft-accent-amber: #f59e0b;
+  --ft-accent-rose: #f43f5e;
+  --ft-accent-rose-muted: rgba(244, 63, 94, 0.12);
+
+  /* Typography */
+  --ft-text-primary: #f8fafc;
+  --ft-text-secondary: #94a3b8;
+  --ft-text-muted: #64748b;
+  --ft-text-dim: #475569;
+
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Shadows */
+  --ft-shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  --ft-shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+  --ft-shadow-glow: 0 0 25px rgba(16, 185, 129, 0.2);
+  --ft-shadow-glow-rose: 0 0 25px rgba(244, 63, 94, 0.2);
+}
+
+/* ==========================================================================
+   RESET & GLOBAL STYLES
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--ft-bg-canvas);
+  color: var(--ft-text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  /* Subtle ambient background glow mesh */
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(14, 165, 233, 0.05), transparent),
+    radial-gradient(ellipse 50% 30% at 0% 80%, rgba(99, 102, 241, 0.04), transparent);
+  background-attachment: fixed;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--ft-text-primary);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 1.6rem;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+p.subtitle {
+  color: var(--ft-text-secondary);
+  font-size: 0.95rem;
+  margin-top: 0.35rem;
+  line-height: 1.55;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ft-bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ft-border-base);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ft-border-hover);
+}
+
+/* ==========================================================================
+   FINTECH CARDS & SURFACES
+   ========================================================================== */
+
+.fintech-card {
+  background: var(--ft-bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--ft-shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.fintech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  pointer-events: none;
+}
+
+.fintech-card:hover {
+  border-color: var(--ft-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--ft-shadow-elevated);
+}
+
+.fintech-card-active {
+  border-color: var(--ft-primary-border);
+  box-shadow: var(--ft-shadow-card), 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+/* Legacy alias to maintain full backward compatibility */
+.glass-panel {
+  background: var(--ft-bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: var(--ft-shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  pointer-events: none;
+}
+
+.glass-panel:hover {
+  border-color: var(--ft-border-hover);
+}
+
+/* ==========================================================================
+   STAT WIDGETS & KPI METRIC CARDS (Fintech Style)
+   ========================================================================== */
+
+.fintech-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.fintech-stat-card {
+  background: var(--ft-bg-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fintech-stat-card:hover {
+  border-color: var(--ft-border-hover);
+  background: var(--ft-bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.fintech-stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fintech-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ft-text-secondary);
+}
+
+.fintech-stat-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ft-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ft-text-secondary);
+}
+
+.fintech-stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--ft-text-primary);
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.fintech-stat-subtext {
+  font-size: 0.75rem;
+  color: var(--ft-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.trend-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.trend-pill-up {
+  background: var(--ft-primary-muted);
+  color: var(--ft-primary-light);
+  border: 1px solid var(--ft-primary-border);
+}
+
+.trend-pill-neutral {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ft-text-secondary);
+  border: 1px solid var(--ft-border-subtle);
+}
+
+.trend-pill-down {
+  background: var(--ft-accent-rose-muted);
+  color: #fda4af;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* Legacy alias for status-card */
+.status-card {
+  background: var(--ft-bg-surface-elevated);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.status-card:hover {
+  background: var(--ft-bg-card-hover);
+  border-color: var(--ft-border-hover);
+}
+
+.status-card .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ft-text-secondary);
+  font-weight: 600;
+}
+
+.status-card .value {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ft-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   BUTTONS (Fintech Styled)
+   ========================================================================== */
+
+.btn-primary, .btn-fintech-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #04130d;
+  font-family: var(--font-body);
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-primary:hover, .btn-fintech-primary:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+}
+
+.btn-primary:active, .btn-fintech-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled, .btn-fintech-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary, .btn-fintech-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ft-text-primary);
+  font-family: var(--font-body);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 10px;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover, .btn-fintech-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ft-border-hover);
+  color: #ffffff;
+}
+
+.btn-danger {
+  background: rgba(244, 63, 94, 0.12);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: rgba(244, 63, 94, 0.5);
+  color: #ffffff;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ft-border-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ft-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ft-border-hover);
+  color: var(--ft-text-primary);
+}
+
+/* ==========================================================================
+   SEGMENTED CONTROL TABS (Minimal Fintech Switcher)
+   ========================================================================== */
+
+.fintech-tabs {
+  display: inline-flex;
+  background: var(--ft-bg-inset);
+  padding: 0.3rem;
+  border-radius: 12px;
+  border: 1px solid var(--ft-border-subtle);
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.fintech-tab-item {
+  padding: 0.55rem 1.1rem;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--ft-text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fintech-tab-item:hover {
+  color: var(--ft-text-primary);
+}
+
+.fintech-tab-item.active {
+  background: var(--ft-bg-surface-elevated);
+  color: var(--ft-text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.fintech-tab-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ft-text-secondary);
+}
+
+.fintech-tab-item.active .fintech-tab-badge {
+  background: var(--ft-primary-muted);
+  color: var(--ft-primary-light);
+}
+
+/* ==========================================================================
+   BADGES & PILLS
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badge-success {
+  background: var(--ft-primary-muted);
+  color: var(--ft-primary-light);
+  border: 1px solid var(--ft-primary-border);
+}
+
+.badge-error {
+  background: var(--ft-accent-rose-muted);
+  color: #fda4af;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.28);
+}
+
+.badge-info {
+  background: rgba(6, 182, 212, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(6, 182, 212, 0.28);
+}
+
+.badge-neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ft-text-secondary);
+  border: 1px solid var(--ft-border-subtle);
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: var(--ft-primary-muted);
+  border: 1px solid var(--ft-primary-border);
+  color: var(--ft-primary-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Pulse Dot */
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pulse-green {
+  background-color: var(--ft-primary);
+  box-shadow: 0 0 8px var(--ft-primary);
+  animation: ft-pulse 2s infinite ease-in-out;
+}
+
+.pulse-red {
+  background-color: var(--ft-accent-rose);
+  box-shadow: 0 0 8px var(--ft-accent-rose);
+  animation: ft-pulse 2s infinite ease-in-out;
+}
+
+@keyframes ft-pulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* ==========================================================================
+   INPUTS & FORM CONTROLS
+   ========================================================================== */
+
+.fintech-input, input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--ft-bg-inset);
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 10px;
+  color: var(--ft-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.fintech-input:focus, input:focus, select:focus, textarea:focus {
+  border-color: var(--ft-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  background-color: #0b0f17;
+}
+
+.fintech-input::placeholder, input::placeholder, textarea::placeholder {
+  color: var(--ft-text-muted);
+}
+
+label.fintech-label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ft-text-secondary);
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   TABLES (Clean Fintech Rows)
+   ========================================================================== */
+
+.fintech-table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.fintech-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.fintech-table thead tr {
+  border-bottom: 1px solid var(--ft-border-subtle);
+  color: var(--ft-text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.fintech-table th {
+  padding: 0.85rem 1rem;
+}
+
+.fintech-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background-color 0.15s ease;
+}
+
+.fintech-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.fintech-table td {
+  padding: 1rem 1rem;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   MODAL DIALOG (Sleek Glassmorphic Overlay)
+   ========================================================================== */
+
+.fintech-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 6, 10, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.fintech-modal-content {
+  background: var(--ft-bg-card-solid);
+  border: 1px solid var(--ft-border-base);
+  border-radius: 16px;
+  box-shadow: var(--ft-shadow-elevated), 0 0 40px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 600px;
+  padding: 2.2rem;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   CODE / TELEMETRY BOX
+   ========================================================================== */
+
+.json-box {
+  background: #05070a;
+  border: 1px solid var(--ft-border-subtle);
+  border-radius: 10px;
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ft-primary-light);
+  overflow-x: auto;
+  margin-top: 1rem;
+}

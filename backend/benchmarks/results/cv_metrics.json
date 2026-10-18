@@ -1,0 +1,111 @@
+{
+  "model_name": "ProctoringClassifier_RandomForest",
+  "dataset_info": {
+    "total_samples": 5500,
+    "features_count": 37,
+    "normal_samples": 2882,
+    "suspicious_samples": 2618,
+    "n_folds": 5
+  },
+  "fold_metrics": [
+    {
+      "fold": 1,
+      "train_samples": 4400,
+      "val_samples": 1100,
+      "accuracy": 0.9954545454545455,
+      "precision": 0.9961685823754789,
+      "recall": 0.994263862332696,
+      "f1_score": 0.9952153110047847,
+      "fpr": 0.0034662045060658577,
+      "fnr": 0.0057361376673040155,
+      "tn": 575,
+      "fp": 2,
+      "fn": 3,
+      "tp": 520
+    },
+    {
+      "fold": 2,
+      "train_samples": 4400,
+      "val_samples": 1100,
+      "accuracy": 0.9981818181818182,
+      "precision": 0.9961904761904762,
+      "recall": 1.0,
+      "f1_score": 0.9980916030534351,
+      "fpr": 0.0034662045060658577,
+      "fnr": 0.0,
+      "tn": 575,
+      "fp": 2,
+      "fn": 0,
+      "tp": 523
+    },
+    {
+      "fold": 3,
+      "train_samples": 4400,
+      "val_samples": 1100,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0,
+      "tn": 576,
+      "fp": 0,
+      "fn": 0,
+      "tp": 524
+    },
+    {
+      "fold": 4,
+      "train_samples": 4400,
+      "val_samples": 1100,
+      "accuracy": 0.9990909090909091,
+      "precision": 0.9980952380952381,
+      "recall": 1.0,
+      "f1_score": 0.9990467111534795,
+      "fpr": 0.001736111111111111,
+      "fnr": 0.0,
+      "tn": 575,
+      "fp": 1,
+      "fn": 0,
+      "tp": 524
+    },
+    {
+      "fold": 5,
+      "train_samples": 4400,
+      "val_samples": 1100,
+      "accuracy": 0.9990909090909091,
+      "precision": 1.0,
+      "recall": 0.9980916030534351,
+      "f1_score": 0.9990448901623686,
+      "fpr": 0.0,
+      "fnr": 0.0019083969465648854,
+      "tn": 576,
+      "fp": 0,
+      "fn": 1,
+      "tp": 523
+    }
+  ],
+  "summary": {
+    "accuracy_mean": 0.9983636363636365,
+    "accuracy_std": 0.0015640591394622955,
+    "precision_mean": 0.9980908593322386,
+    "precision_std": 0.001708581876068598,
+    "recall_mean": 0.9984710930772263,
+    "recall_std": 0.00222968483653604,
+    "f1_score_mean": 0.9982797030748136,
+    "f1_score_std": 0.0016467613402921725,
+    "fpr_mean": 0.0017337040246485653,
+    "fpr_std": 0.0015501342471187975,
+    "fnr_mean": 0.0015289069227737801,
+    "fnr_std": 0.00222968483653606
+  },
+  "phone_detector_summary": {
+    "accuracy_mean": 0.986,
+    "accuracy_std": 0.0027931439083158814,
+    "precision_mean": 0.9771714124459219,
+    "precision_std": 0.003949656912159351,
+    "recall_mean": 0.9924,
+    "recall_std": 0.004454211490264022,
+    "f1_score_mean": 0.9847183275886715,
+    "f1_score_std": 0.0030582668622189677
+  }
+}

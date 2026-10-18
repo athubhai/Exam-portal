@@ -1,0 +1,4 @@
+System Variant,Accuracy,Precision,Recall,F1 Score,FPR,FNR
+Variant A: Legacy Global Static,0.6767,1.0000,0.3533,0.5222,0.0000,0.6467
+Variant B: Personalized Video Baseline,0.6133,0.5802,0.8200,0.6796,0.5933,0.1800
+Variant C: Full Multi-Modal Fused,0.7033,0.6276,1.0000,0.7712,0.5933,0.0000
