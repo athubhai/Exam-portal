@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 export default function FacultyDashboard() {
-  const { authFetch } = useAuth();
+  const { authFetch, token } = useAuth();
   const [activeTab, setActiveTab] = useState('exams');
   const [exams, setExams] = useState([]);
   const [submissions, setSubmissions] = useState([]);
@@ -101,7 +101,10 @@ export default function FacultyDashboard() {
     if (wsRef.current) wsRef.current.close();
 
     const host = window.location.hostname || 'localhost';
-    const wsUrl = `ws://${host}:8000/api/proctoring/ws/${examId}`;
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsPort = window.location.port ? `:${window.location.port}` : '';
+    const tokenParam = token ? `?token=${token}` : '';
+    const wsUrl = `${wsProtocol}//${host}${wsPort}/api/proctoring/ws/${examId}${tokenParam}`;
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {

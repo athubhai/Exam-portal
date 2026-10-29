@@ -75,7 +75,7 @@ def extract_features_from_frame(frame: np.ndarray) -> tuple[np.ndarray, list[str
                     valid_faces.append((bx, by, bw, bh))
         if valid_faces:
             valid_faces.sort(key=lambda b: b[2] * b[3], reverse=True)
-            faces = valid_faces[:1]  # Only take the largest — one face from skin fallback
+            faces = valid_faces
 
     primary_face = faces[0] if len(faces) > 0 else (int(w * 0.35), int(h * 0.20), int(w * 0.30), int(h * 0.40))
 

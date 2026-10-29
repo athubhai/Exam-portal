@@ -2,9 +2,9 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 const AuthContext = createContext();
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' && window.location.port !== '8000'
+const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' && !['8000', '8001'].includes(window.location.port)
   ? ''
-  : 'http://localhost:8000';
+  : 'http://localhost:8001';
 
 export const AuthProvider = ({ children }) => {
   // #22: Use sessionStorage instead of localStorage to reduce XSS token theft surface
@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(body),
       });
     } catch (networkErr) {
-      throw new Error('Cannot connect to backend server. Please verify FastAPI is running on http://localhost:8000.');
+      throw new Error('Cannot connect to backend server. Please verify FastAPI is running on http://localhost:8001.');
     }
 
     let data;
