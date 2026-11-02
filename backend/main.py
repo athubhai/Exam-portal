@@ -38,6 +38,15 @@ app.include_router(admin_router, prefix=settings.API_V1_STR)
 app.include_router(mfa_router, prefix=settings.API_V1_STR)
 app.include_router(profile_router, prefix=settings.API_V1_STR)
 
+@app.on_event("startup")
+def on_startup():
+    try:
+        from seed import seed_database
+        seed_database()
+        print("[Startup] Database initialized and seeded successfully.")
+    except Exception as e:
+        print(f"[Startup] DB init warning: {e}")
+
 @app.get("/")
 def root():
     return {
