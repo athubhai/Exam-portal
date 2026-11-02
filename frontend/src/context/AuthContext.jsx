@@ -108,14 +108,27 @@ export const AuthProvider = ({ children }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+
+      // Handle Render free tier cold-start: if 502/504 gateway timeout, retry once after 4s
+      if (res.status === 502 || res.status === 504) {
+        await new Promise((resolve) => setTimeout(resolve, 4000));
+        res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+      }
     } catch (networkErr) {
-      throw new Error('Cannot connect to backend server. Please verify FastAPI is running on http://localhost:8001.');
+      throw new Error('Cannot connect to backend server. Please verify FastAPI backend is active.');
     }
 
     let data;
     try {
       data = await res.json();
     } catch (parseErr) {
+      if (res.status === 502 || res.status === 504) {
+        throw new Error('The cloud backend is currently waking up from sleep (Render free tier cold start takes ~20-30 seconds). Please click Sign In again in a few seconds!');
+      }
       throw new Error(`Server returned status ${res.status} (${res.statusText || 'No response body'}). Please check backend logs.`);
     }
 
