@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 const AuthContext = createContext();
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' && !['8000', '8001'].includes(window.location.port)
+const API_BASE_URL = typeof window !== 'undefined' && !['8000', '8001'].includes(window.location.port)
   ? ''
   : 'http://localhost:8001';
 
