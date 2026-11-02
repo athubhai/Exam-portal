@@ -2,9 +2,10 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 const AuthContext = createContext();
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && !['8000', '8001'].includes(window.location.port)
+const rawApiUrl = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && !['8000', '8001'].includes(window.location.port)
   ? ''
   : 'http://localhost:8001');
+const API_BASE_URL = rawApiUrl.replace(/\/$/, '');
 
 export const AuthProvider = ({ children }) => {
   // #22: Use sessionStorage instead of localStorage to reduce XSS token theft surface

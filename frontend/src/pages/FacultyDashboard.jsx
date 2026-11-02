@@ -101,7 +101,8 @@ export default function FacultyDashboard() {
     if (wsRef.current) wsRef.current.close();
 
     const tokenParam = token ? `?token=${token}` : '';
-    const backendEnv = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL;
+    const isCloudHost = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+    const backendEnv = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL || (isCloudHost ? 'wss://exam-portal-1-urzw.onrender.com' : null);
     let wsUrl;
     if (backendEnv) {
       const cleanWs = backendEnv.replace(/^http/, 'ws').replace(/\/$/, '');
