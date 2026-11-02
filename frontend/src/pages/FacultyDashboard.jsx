@@ -100,11 +100,18 @@ export default function FacultyDashboard() {
   const connectWebSocket = (examId) => {
     if (wsRef.current) wsRef.current.close();
 
-    const host = window.location.hostname || 'localhost';
-    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsPort = window.location.port ? `:${window.location.port}` : '';
     const tokenParam = token ? `?token=${token}` : '';
-    const wsUrl = `${wsProtocol}//${host}${wsPort}/api/proctoring/ws/${examId}${tokenParam}`;
+    const backendEnv = import.meta.env.VITE_WS_URL || import.meta.env.VITE_API_URL;
+    let wsUrl;
+    if (backendEnv) {
+      const cleanWs = backendEnv.replace(/^http/, 'ws').replace(/\/$/, '');
+      wsUrl = `${cleanWs}/api/proctoring/ws/${examId}${tokenParam}`;
+    } else {
+      const host = window.location.hostname || 'localhost';
+      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsPort = window.location.port ? `:${window.location.port}` : '';
+      wsUrl = `${wsProtocol}//${host}${wsPort}/api/proctoring/ws/${examId}${tokenParam}`;
+    }
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {

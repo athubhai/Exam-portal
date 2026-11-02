@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: exam-portal-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: ENVIRONMENT
+        value: development
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: "*"

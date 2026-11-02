@@ -18,3 +18,4 @@ echo (Look below for your random *.trycloudflare.com address)
 echo ======================================================================
 npx --yes cloudflared tunnel --url http://localhost:5174
 pause
+
